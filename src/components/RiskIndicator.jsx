@@ -1,0 +1,7 @@
+import { ShieldAlert } from 'lucide-react';
+import { Badge } from './UI';
+import { remaining } from '../data/mock';
+export default function RiskIndicator({ p }) {
+ const levels = ['Low','Medium','High','Critical'];
+ return <section className="panel risk-indicator"><div className="section-head"><h2>Loss-risk awareness</h2><ShieldAlert size={20}/></div><div className="risk-scale">{levels.map(level => <span key={level} className={level === p.risk ? 'selected' : ''}>{level}</span>)}</div><Badge tone={p.risk === 'High' || p.risk === 'Critical' ? 'red' : p.risk === 'Medium' ? 'amber' : 'green'}>{p.risk} risk · Demo indicator</Badge><div className="info-list"><div><span>Crop & harvest age</span><strong>{p.crop} · {p.age}</strong></div><div><span>Current quality</span><strong>Grade {p.grade}</strong></div><div><span>Availability window</span><strong>{p.until || (p.eligible ? 'Pickup today recommended' : 'Primary matching active')}</strong></div><div><span>Storage condition</span><strong>{p.storage}</strong></div><div><span>Unmatched quantity</span><strong>{remaining(p)} kg</strong></div></div><p>{remaining(p) === 0 ? 'No remaining inventory. This batch is fully allocated.' : p.eligible ? 'Prioritize immediate matching. A compatible alternative may be allocated after destination checks.' : 'Continue primary matching while produce is fresh and marketable.'}</p><small>Illustrative risk, not an AI prediction. Critical indicates an urgent review, never automatic food-safety suitability.</small></section>;
+}
