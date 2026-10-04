@@ -1,0 +1,230 @@
+/* Final AgriTech presentation layer: no changes to state, transactions or routing. */
+:root {
+  font-family: 'Inter Variable', Inter, sans-serif;
+  --shadow: 0 4px 20px rgba(6,76,45,.04);
+}
+html { scroll-padding-top: 110px; }
+.public-page { padding-top: 94px; }
+.public-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 94px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 3px 18px rgba(6,76,45,.025);
+}
+.public-nav .brand-icon { color: var(--heading); }
+.public-nav nav>a:not(.button) {
+  color: var(--muted);
+  position: relative;
+  padding-block: 10px;
+}
+.public-nav nav>a:not(.button):after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: transform .18s;
+}
+.public-nav nav>a:not(.button):hover,
+.public-nav nav>a:not(.button):focus-visible { color: var(--primary); }
+.public-nav nav>a:not(.button):hover:after,
+.public-nav nav>a:not(.button):focus-visible:after { transform: scaleX(1); }
+.public-page:has(#how-it-works:target) a[href='#how-it-works']:after,
+.public-page:has(#impact:target) a[href='#impact']:after { transform: scaleX(1); }
+.public-page:has(#how-it-works:target) .public-nav a[href='#how-it-works'],
+.public-page:has(#impact:target) .public-nav a[href='#impact'] { color: var(--primary); }
+.public-nav .button.secondary { border-color: var(--line); }
+.hero {
+  background: var(--soft-green);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  max-width: 1280px;
+  padding: 52px 48px;
+  margin: 40px auto 48px;
+  gap: 45px;
+  width: calc(100% - 64px);
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+}
+.hero-copy { min-width: 0; }
+.hero h1 { font-size: clamp(42px,4.25vw,64px); letter-spacing: -2.8px; }
+.hero-visual {
+  background: var(--surface);
+  border-radius: 22px;
+  padding: 27px;
+  box-shadow: var(--shadow);
+  margin-bottom: 23px;
+}
+.hero-visual:before { opacity: .18; }
+.hero-harvest { background: var(--soft-green); }
+.hero-harvest h3 { font-size: 19px; }
+.hero-route { background: var(--soft-green); }
+.hero-route h3 { font-size: 14px; }
+.hero-outcome { border-color: var(--line); }
+.hero-path>div>span { color: #FFF; background: var(--primary); }
+.hero-copy>p { font-size: 14px; line-height: 1.85; }
+.hero-buttons .button { border-radius: 12px; }
+.public-workflow span,
+.journey-step>span,
+.journey-step.done>span,
+.timeline-dot {
+  background: var(--primary);
+  color: #FFF;
+  border-color: var(--primary);
+}
+.public-workflow>div:not(:last-child):before,
+.journey-step:not(:last-child):before,
+.timeline-item:not(:last-child):before {
+  background: var(--primary);
+  opacity: .25;
+}
+.public-workflow span { font-size: 14px; }
+.public-workflow>div { min-height: 91px; }
+.workflow-copy { min-width: 0; flex: 1; padding-top: 1px; }
+.public-workflow .workflow-copy strong { display: block; padding: 5px 0 8px; }
+.workflow-copy small {
+  display: inline-block;
+  background: var(--green-bg);
+  color: var(--heading);
+  border-radius: 7px;
+  padding: 5px 9px;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.public-workflow>div:last-child { min-height: 65px; }
+.journey-step.done small,.badge.green { color: var(--heading); }
+.impact-numbers>div { transition: transform .18s,border-color .18s,box-shadow .18s; }
+.impact-numbers>div:hover { transform: translateY(-2px); border-color: var(--primary); }
+.impact-metric-icon {
+  display: grid;
+  place-items: center;
+  width: 39px;
+  height: 39px;
+  margin-bottom: 20px;
+  background: var(--soft-green);
+  border-radius: 12px;
+  color: var(--primary);
+}
+.impact-metric-icon svg { stroke-width: 1.65; }
+.role-grid {
+  padding: 20px;
+  background: var(--soft-green);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  gap: 17px;
+}
+.role-card { background: var(--soft-green); border-radius: 16px; box-shadow: var(--shadow); }
+.role-card:hover,.role-card:focus-visible,.role-card:active {
+  background: var(--green-bg);
+  border-color: var(--primary);
+}
+.role-card:focus-visible { outline-offset: 3px; }
+.role-card>svg { color: var(--primary); }
+.topbar { position: sticky; top: 0; z-index: 25; }
+.stat-card,.panel,.benefit-grid article { transition: border-color .18s,box-shadow .18s; }
+.stat-card:hover,.benefit-grid article:hover { border-color: #B4D7BD; box-shadow: 0 7px 23px rgba(6,76,45,.05); }
+.benefit-grid article { transition: transform .18s,border-color .18s,box-shadow .18s; }
+.benefit-grid article:hover { transform: translateY(-2px); }
+@media(max-width:1250px) {
+  .public-nav nav { gap: 18px; }
+  .public-nav .button { padding-inline: 16px; }
+  .hero { padding: 39px 33px; gap: 28px; }
+  .hero h1 { font-size: 50px; }
+  .hero-harvest h3 { font-size: 16px; }
+  .hero-route h3 { font-size: 12px; }
+  .hero-visual { padding: 23px; }
+  .hero-proof { flex-wrap: wrap; }
+}
+@media(max-width:1050px) {
+  .hero h1 { font-size: 44px; }
+  .hero-harvest { gap: 9px; padding: 17px 12px; }
+  .hero-harvest h3 { font-size: 14px; }
+  .hero-harvest>span:first-child { font-size: 32px; }
+  .hero-harvest small { font-size: 6px; }
+  .hero-route { padding: 15px 11px; }
+  .hero-route h3 { font-size: 11px; }
+  .hero-route small { font-size: 6px; }
+  .hero-route p { font-size: 9px; }
+  .hero .button { font-size: 12px; padding-inline: 16px; }
+  .role-grid { padding: 16px; gap: 14px; }
+}
+@media(max-width:800px) {
+  .public-nav { height: 84px; }
+  .public-page { padding-top: 84px; }
+  .public-nav nav>a:not(.button) { display: none; }
+  .hero { max-width: 650px; width: calc(100% - 44px); padding: 36px 30px; grid-template-columns: 1fr; gap: 35px; margin: 30px auto 40px; }
+  .hero h1 { font-size: 57px; }
+  .hero-visual { padding: 26px; }
+  .hero-harvest { gap: 16px; padding: 23px 17px; }
+  .hero-harvest h3 { font-size: 20px; }
+  .hero-harvest small { font-size: 8px; }
+  .hero-harvest>span:first-child { font-size: 43px; }
+  .hero-route h3 { font-size: 15px; }
+  .hero-route p { font-size: 11px; }
+  .hero-route small { font-size: 7px; }
+  .hero-route { padding: 20px 16px; }
+  .hero .button { padding: 14px 21px; font-size: 14px; }
+  html { scroll-padding-top: 100px; }
+  .role-grid { padding: 18px; gap: 17px; }
+}
+@media(max-width:540px) {
+  .public-nav { height: 77px; padding: 16px 18px; }
+  .public-page { padding-top: 77px; }
+  .public-nav nav { gap: 9px; }
+  .public-nav .button { padding: 10px 13px; min-height: 43px; font-size: 12px; }
+  .public-nav { height: 120px; flex-wrap: wrap; align-content: center; justify-content: center; gap: 13px; }
+  .public-nav .brand { width: 100%; justify-content: center; font-size: 24px; }
+  .public-nav nav { justify-content: center; gap: 12px; }
+  .public-page { padding-top: 120px; }
+  html { scroll-padding-top: 140px; }
+  .hero { width: calc(100% - 32px); padding: 31px 21px; margin: 24px auto 30px; gap: 32px; border-radius: 24px; }
+  .hero h1 { font-size: clamp(35px,10vw,48px); letter-spacing: -1.75px; line-height: 1.15; margin: 22px 0; }
+  .hero-eyebrow { font-size: 7px; letter-spacing: .65px; }
+  .hero-copy>p { font-size: 13px; line-height: 1.85; }
+  .hero-buttons { gap: 10px; flex-wrap: wrap; }
+  .hero .button { padding: 13px 14px; font-size: 12px; }
+  .hero-proof { gap: 12px; font-size: 10px; }
+  .hero-visual { padding: 19px 14px; border-radius: 20px; margin-bottom: 20px; }
+  .hero-harvest { padding: 17px 12px; gap: 9px; }
+  .hero-harvest>span:first-child { font-size: 29px; }
+  .hero-harvest h3 { font-size: 14px; line-height: 1.5; }
+  .hero-harvest small { font-size: 5px; }
+  .hero-harvest p { font-size: 8px; }
+  .hero-harvest .harvest-check { width: 22px; height: 22px; }
+  .hero-path { gap: 9px; padding: 26px 0; }
+  .hero-path strong { font-size: 24px; }
+  .hero-path p { font-size: 9px; }
+  .hero-path>svg { width: 15px; }
+  .hero-route { padding: 15px 10px; gap: 8px; }
+  .hero-route>span { width: 28px; height: 32px; }
+  .hero-route h3 { font-size: 10px; }
+  .hero-route p { font-size: 8px; }
+  .hero-route small { font-size: 5px; letter-spacing: .25px; }
+  .hero-outcome { gap: 8px; }
+  .hero-outcome>div { font-size: 12px; gap: 5px; }
+  .hero-outcome>div>svg { width: 16px; }
+  .hero-outcome>span { font-size: 9px; }
+  .floating-label { right: 12px; padding: 12px 17px; bottom: -37px; }
+  .floating-label span { font-size: 21px; }
+  .floating-label small { font-size: 6px; }
+  .public-workflow { padding: 26px 21px; }
+  .public-workflow>div { gap: 15px; min-height: 95px; }
+  .public-workflow .workflow-copy strong { font-size: 14px; }
+  .workflow-copy small { font-size: 10px; }
+  .impact-metric-icon { width: 35px; height: 35px; margin-bottom: 18px; border-radius: 10px; }
+  .role-grid { padding: 13px; gap: 12px; border-radius: 21px; }
+  .role-card { padding: 21px 13px; }
+  .role-card h3 { font-size: 16px; }
+  .role-card p { font-size: 11px; }
+  .role-card>span { font-size: 10px; gap: 5px; }
+  .role-card>span>svg { width: 12px; }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; } }
