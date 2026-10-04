@@ -3,3 +3,4 @@ dist
 *.local
 .npm-cache
 *.tar.gz
+.vercel

@@ -1,0 +1,7 @@
+.git
+.openai
+.npm-cache
+node_modules
+dist
+*.tar.gz
+preview.jpg
