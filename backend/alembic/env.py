@@ -1,5 +1,5 @@
 """Use the application's engine and complete model metadata for migrations."""
-import logging
+import sys
 
 from alembic import context
 from sqlalchemy.exc import SQLAlchemyError
@@ -7,7 +7,6 @@ from sqlalchemy.exc import SQLAlchemyError
 from app.database import Base, migration_engine
 import app.models  # noqa: F401 -- registers every model
 
-logger = logging.getLogger("alembic.runtime.migration")
 target_metadata = Base.metadata
 
 
@@ -35,6 +34,10 @@ else:
     except SQLAlchemyError as exc:
         original = getattr(exc, "orig", None)
         sqlstate = getattr(original, "sqlstate", None) or getattr(original, "pgcode", None)
-        # Log only non-sensitive diagnostic metadata; driver messages and URLs can contain credentials.
-        logger.error("Migration database operation failed (%s, SQLSTATE=%s).", type(exc).__name__, sqlstate or "unavailable")
+        # Emit only non-sensitive diagnostic metadata; driver messages and URLs can contain credentials.
+        print(
+            f"Migration database operation failed ({type(exc).__name__}, SQLSTATE={sqlstate or 'unavailable'}).",
+            file=sys.stderr,
+            flush=True,
+        )
         raise RuntimeError("Migration database operation failed. Check connectivity, permissions, and schema compatibility; credentials are not logged.") from None
