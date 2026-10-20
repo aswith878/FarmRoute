@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: agriroute-api
+    runtime: python
+    plan: free
+    region: singapore
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    preDeployCommand: python -m alembic upgrade head
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health/db
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 30
+      - key: SUPABASE_URL
+        value: https://suhewsisyqhitnxoabqv.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: AGRIROUTE_CORS_ORIGINS
+        sync: false
+      - key: MATCHING_ATTEMPT_COOLDOWN_SECONDS
+        value: 60
+      - key: ROUTING_FAILED_ATTEMPT_THRESHOLD
+        value: 3
+      - key: ROUTING_QUALITY_REJECTION_THRESHOLD
+        value: 2
+      - key: ROUTING_URGENT_DEADLINE_DAYS
+        value: 1
+      - key: ROUTING_COMBINED_FAILURE_THRESHOLD
+        value: 2
