@@ -34,3 +34,10 @@ jobs:
       - name: Run backend tests
         run: python -m unittest discover -s tests -v
         working-directory: backend
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/agriroute_ci
+          DIRECT_URL: postgresql://postgres:postgres@127.0.0.1:5432/agriroute_ci
+          JWT_SECRET: ci-only-secret-that-is-at-least-32-bytes-long
+          SUPABASE_URL: https://ci.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: ci-only-placeholder
+
