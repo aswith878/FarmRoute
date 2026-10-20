@@ -1,4 +1,5 @@
 """Use the application's engine and complete model metadata for migrations."""
+import re
 import sys
 
 from alembic import context
@@ -34,9 +35,13 @@ else:
     except SQLAlchemyError as exc:
         original = getattr(exc, "orig", None)
         sqlstate = getattr(original, "sqlstate", None) or getattr(original, "pgcode", None)
-        # Emit only non-sensitive diagnostic metadata; driver messages and URLs can contain credentials.
+        detail = str(original or exc).replace("\\n", " ")
+        detail = re.sub(r"(?i)(postgres(?:ql)?://[^:/@\\s]+:)[^@/\\s]+@", r"\\1<redacted>@", detail)
+        detail = re.sub(r"(?i)(password[=:\\s]+)[^\\s,;]+", r"\\1<redacted>", detail)
+        detail = re.sub(r"eyJ[A-Za-z0-9_.-]{20,}", "<redacted-token>", detail)
+        detail = detail[:300]
         print(
-            f"Migration database operation failed ({type(exc).__name__}, SQLSTATE={sqlstate or 'unavailable'}).",
+            f"Migration database operation failed ({type(exc).__name__}, SQLSTATE={sqlstate or 'unavailable'}): {detail}",
             file=sys.stderr,
             flush=True,
         )
